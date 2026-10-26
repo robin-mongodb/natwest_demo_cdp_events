@@ -1,0 +1,26 @@
+{
+  "$replaceWith": {
+    "$mergeObjects": [
+      {
+        "_id": "$eventUniqueId",
+        "event_unique_id": "$eventUniqueId",
+        "event_schema_id": "$schemaId",
+        "envelope_schema_id": "$envelope.schemaId",
+        "event_type": "$envelope.eventType",
+        "event_purpose_type": "$envelope.eventPurposeType",
+        "source_system_id": "$envelope.sourceSystemId",
+        "initiated_by": "$envelope.initiatedBy",
+        "initiated_timestamp": {
+          "$dateFromString": {
+            "dateString": "$envelope.initiatedTimeStamp"
+          }
+        },
+        "event_group_type": "$envelope.eventGroup.eventGroupType"
+      },
+      "$_classifications",
+      "$_identifiers",
+      "$_actioned_fields",
+      "$_before_image_and_lineage"
+    ]
+  }
+}
